@@ -7,6 +7,7 @@ require_once 'bootstrap.php';
 $cards = require 'cards.php';
 
 $uri = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD'];
 
 switch ($uri) {
     case '/':
@@ -14,12 +15,20 @@ switch ($uri) {
         $action = 'indexAction';
         break;
     case '/actions/gameStart':
-        $controller = 'GameController';
-        $action = 'startAction';
+        if ($method === 'POST') {
+            $controller = 'GameController';
+            $action = 'startAction';
+        }
+        break;
+    case '/actions/gameStop':
+        if ($method === 'POST') {
+            $controller = 'GameController';
+            $action = 'gameStop';
+        }
         break;
     default:
         $controller = 'HomeController';
-        $action = 'indexAction';
+        $action = 'nofFoundAction';
 }
 
 $controller = DI::make("Casino\\Controller\\{$controller}");

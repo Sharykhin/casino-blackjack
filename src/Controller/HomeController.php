@@ -2,7 +2,7 @@
 
 namespace Casino\Controller;
 
-use Casino\Service\Auth;
+use Casino\Service\GameState;
 
 /**
  * Class HomeController
@@ -13,11 +13,18 @@ class HomeController extends BaseController
 
     public function indexAction()
     {
-        $auth = new Auth();
-        if ($auth->isAuthenticated()) {
-            $this->render('home');
+        $gameSate = new GameState();
+        if ($gameSate->isGameStarted()) {
+            $this->render('table', [
+                'playerName' => $_SESSION['playerName']
+            ]);
         } else {
             $this->render('start-game');
         }
+    }
+
+    public function nofFoundAction()
+    {
+        $this->render('404');
     }
 }
