@@ -7,5 +7,8 @@
       "functions.php",
       "src/Support/functions.php"
     ]
+  },
+  "require": {
+    "cboden/ratchet": "^0.4.0"
   }
 }

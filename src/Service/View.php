@@ -25,8 +25,13 @@ class View
         }
         require $file;
         $template = ob_get_clean();
+        $gateState = new GameState();
         ob_start();
-        extract(['content' => $template]);
+        extract([
+            'content' => $template,
+            'socket' => config('socket'),
+            'isGameStarted' => $gateState->isGameStarted()
+        ]);
         require __DIR__. "/../Resource/views/_layout.php";;
         $template = ob_get_clean();
         return $template;
