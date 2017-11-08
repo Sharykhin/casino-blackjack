@@ -38,6 +38,7 @@ class GameController extends BaseController
 //        $_SESSION['opponentSteps'] = false;
 //        $_SESSION['waitAndTakeMore'] = false;
 //        $_SESSION['result'] = null;
+        session_write_close();
         $this->redirect('/');
     }
 
@@ -52,7 +53,7 @@ class GameController extends BaseController
         $_SESSION['opponentCards'] = [];
         $_SESSION['opponentSteps'] = false;
         $_SESSION['result'] = null;
-
+        session_write_close();
         $this->redirect('/');
     }
 }

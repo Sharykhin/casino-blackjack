@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-//ini_set('session.save_handler', 'memcache');
-//ini_set('session.save_path', 'tcp://host:11211?persistent=1&weight=2&timeout=2&retry_interval=10');
+ini_set('session.save_handler', 'memcached');
+ini_set('session.save_path', '127.0.0.1:11211?persistent=1&amp;weight=1&amp;timeout=1&amp;retry_interval=15');
 
 $ip = "127.0.0.1";
 $port = "8080";
