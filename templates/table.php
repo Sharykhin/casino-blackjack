@@ -8,6 +8,7 @@ $playerSum = array_sum(array_column($playerCards, 'score'));
         <button name="gameStart" type="submit">Restart</button>
     </form>
 <?php } ?>
+
 <?php require 'player-table.php'; ?>
 
 <?php if ($isGameRunning === true) { ?>

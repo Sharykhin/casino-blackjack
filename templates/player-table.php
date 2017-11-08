@@ -15,8 +15,10 @@
             </form>
         <?php } else { ?>
             <?php if (!$opponentSteps) { ?>
-                <form method="post" action="">
+                <form method="post" action="/actions/takeOneCard.php">
                     <button name="takeOneCard" type="submit">Take One</button>
+                </form>
+                <form method="post" action="/actions/enoughCards.php">
                     <button name="enoughCards" type="submit">Enough</button>
                 </form>
             <?php } else { ?>
