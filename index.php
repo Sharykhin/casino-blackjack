@@ -1,10 +1,32 @@
 <?php
 
+use Casino\Service\DI;
+
 require_once 'bootstrap.php';
 
 $cards = require 'cards.php';
 
-$_SESSION['waitAndTakeMore'] = false;
+$uri = $_SERVER['REQUEST_URI'];
+
+switch ($uri) {
+    case '/':
+        $controller = 'HomeController';
+        $action = 'indexAction';
+        break;
+    case '/actions/gameStart':
+        $controller = 'GameController';
+        $action = 'startAction';
+        break;
+    default:
+        $controller = 'HomeController';
+        $action = 'indexAction';
+}
+
+$controller = DI::make("Casino\\Controller\\{$controller}");
+
+call_user_func_array([$controller, $action], []);
+
+//$_SESSION['waitAndTakeMore'] = false;
 
 //if (isset($_POST['takeOneCard'])) {
 //    $_SESSION['playerCards'][] = array_shift($_SESSION['cards']);
@@ -51,16 +73,16 @@ $_SESSION['waitAndTakeMore'] = false;
 //    }
 //}
 
-render('table.php', [
-    'cards' => $_SESSION['cards'] ?? $cards,
-    'isGameRunning' => $_SESSION['isGameRunning'] ?? false,
-    'playerName' => $_SESSION['playerName'] ?? null,
-    'steps' => $_SESSION['steps'] ?? null,
-    'playerCards' => $_SESSION['playerCards'] ?? [],
-    'opponentCards' => $_SESSION['opponentCards'] ?? [],
-    'result' => $_SESSION['result'] ?? null,
-    'waitAndTakeMore' => $_SESSION['waitAndTakeMore'] ?? false,
-    'opponentSteps' => $_SESSION['opponentSteps'] ?? false,
-    'opponentComment' => $_SESSION['opponentComment'] ?? '',
-    'playerBid' => $_SESSION['playerBid'] ?? null
-]);
+//render('table.php', [
+//    'cards' => $_SESSION['cards'] ?? $cards,
+//    'isGameRunning' => $_SESSION['isGameRunning'] ?? false,
+//    'playerName' => $_SESSION['playerName'] ?? null,
+//    'steps' => $_SESSION['steps'] ?? null,
+//    'playerCards' => $_SESSION['playerCards'] ?? [],
+//    'opponentCards' => $_SESSION['opponentCards'] ?? [],
+//    'result' => $_SESSION['result'] ?? null,
+//    'waitAndTakeMore' => $_SESSION['waitAndTakeMore'] ?? false,
+//    'opponentSteps' => $_SESSION['opponentSteps'] ?? false,
+//    'opponentComment' => $_SESSION['opponentComment'] ?? '',
+//    'playerBid' => $_SESSION['playerBid'] ?? null
+//]);
