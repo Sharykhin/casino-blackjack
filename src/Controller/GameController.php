@@ -22,7 +22,7 @@ class GameController extends BaseController
         $_SESSION['isGameStarted'] = true;
         $_SESSION['playerName'] = $_SESSION['playerName'] ?? $_POST['name'];
         $_SESSION['playerBid'] = $_SESSION['playerBid'] ?? $_POST['money'];
-        $_SESSION['steps'] = 1;
+//        $_SESSION['steps'] = 1;
 
 //        $_SESSION['isGameRunning'] = true;
 //        $_SESSION['steps'] = 1;
@@ -44,15 +44,16 @@ class GameController extends BaseController
 
     public function gameStop()
     {
-        $_SESSION['isGameStarted'] = false;
-        $_SESSION['isGameRunning'] = false;
-        $_SESSION['playerName'] = null;
-        $_SESSION['playerBid'] = null;
-        $_SESSION['steps'] = null;
-        $_SESSION['playerCards'] = [];
-        $_SESSION['opponentCards'] = [];
-        $_SESSION['opponentSteps'] = false;
-        $_SESSION['result'] = null;
+//        $_SESSION['isGameStarted'] = false;
+//        $_SESSION['isGameRunning'] = false;
+//        $_SESSION['playerName'] = null;
+//        $_SESSION['playerBid'] = null;
+//        $_SESSION['steps'] = null;
+//        $_SESSION['playerCards'] = [];
+//        $_SESSION['opponentCards'] = [];
+//        $_SESSION['opponentSteps'] = false;
+//        $_SESSION['result'] = null;
+        session_destroy();
         session_write_close();
         $this->redirect('/');
     }

@@ -27,6 +27,7 @@ class GameHandler implements MessageComponentInterface
         $this->clients->attach($conn);
         //echo "New connection! ({$conn->resourceId})\n";
 
+
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
@@ -39,12 +40,31 @@ class GameHandler implements MessageComponentInterface
 
         @session_start();
 
-        if (isset($_SESSION['playerName'])) {
-            $this->players[$from->resourceId] = $_SESSION['playerName'];
+        if ($message['action'] === 'connect') {
+            $this->players[$from->resourceId] = $_SESSION;
+            if (isset($_SESSION['playerName']) && isset($_SESSION['playerBid'])) {
+                foreach ($this->clients as $client) {
+                    if ($client !== $from) {
+                        $client->send(json_encode([
+                            'action' => 'playerJoined',
+                            'name' => $_SESSION['playerName'],
+                            'bid' => $_SESSION['playerBid']
+                        ]));
+                    }
+                }
+            }
+            session_write_close();
+
+            return;
         }
 
         if ($message['action'] === 'getPlayers') {
-            $playersNum = sizeof($this->players);
+            $playersNum = 0;
+            foreach ($this->players as $player) {
+                if (isset($player['playerName']) && isset($player['playerBid'])) {
+                    $playersNum++;
+                }
+            }
             $from->send(json_encode(['playersNum' => $playersNum, 'action' => 'getPlayers']));
             session_write_close();
             return;
