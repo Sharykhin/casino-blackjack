@@ -27,6 +27,7 @@ return [
         'img' => 'p_10.jpg',
         'id' => 'p_10'
     ],
+
     [
         'score' => 9,
         'img' => 'p_9.jpg',
